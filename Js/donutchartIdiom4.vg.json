@@ -1,21 +1,28 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Donut chart showing the distribution of countries by income group",
-    "data": {
-      "values": [
-        {"IncomeGroup": "High income", "Count": 85},
-        {"IncomeGroup": "Upper middle income", "Count": 54},
-        {"IncomeGroup": "Lower middle income", "Count": 51},
-        {"IncomeGroup": "Low income", "Count": 26}
-      ]
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Donut chart showing energy production by energy type in 2022",
+  "data": {
+    "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/complete_renewable_energy_dataset.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum.Year == 2022" 
     },
-    "mark": {
-      "type": "arc",
-      "innerRadius": 50  
-    },
-    "encoding": {
-      "theta": {"field": "Count", "type": "quantitative"},
-      "color": {"field": "IncomeGroup", "type": "nominal", "legend": {"title": "Income Group"}}
-    },
-    "view": {"stroke": null}
-  }
+    {
+      "aggregate": [{"op": "sum", "field": "Production (GWh)", "as": "Total Production"}],
+      "groupby": ["Energy Type"]  
+    }
+  ],
+  "mark": {
+    "type": "arc",
+    "innerRadius": 50  
+  },
+  "encoding": {
+    "theta": {"field": "Total Production", "type": "quantitative"},
+    "color": {"field": "Energy Type", "type": "nominal", "legend": {"title": "Energy Type"}}
+  },
+  "view": {"stroke": null}
+}

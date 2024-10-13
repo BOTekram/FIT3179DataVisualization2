@@ -1,35 +1,59 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Renewable energy consumption for selected countries with year slider",
-    "data": {
-      "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv", 
-      "format": {
-        "type": "csv"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Renewable energy consumption for selected countries with year slider",
+  "data": {
+    "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv", 
+    "format": {
+      "type": "csv"
+    }
+  },
+  "params": [
+    {
+      "name": "selectedYear",
+      "value": 1990,
+      "bind": {
+        "input": "range",
+        "min": 1990,
+        "max": 2020,
+        "step": 1,
+        "name": "Select Year" 
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.Country_Name == 'Singapore' || datum.Country_Name == 'Malaysia' || datum.Country_Name == 'Australia' || datum.Country_Name == 'China' || datum.Country_Name == 'Brazil'"
+    },
+    {
+      "filter": "datum.Year == selectedYear"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Country_Name", 
+      "type": "nominal", 
+      "axis": {
+        "labelAngle": -45, 
+        "title": "Country"
       }
     },
-    "params": [
-      {
-        "name": "selectedYear",
-        "value": 1990,
-        "bind": {
-          "input": "range",
-          "min": 1990,
-          "max": 2020,
-          "step": 1
-        }
+    "y": {
+      "field": "Renewable_Energy_Consumption", 
+      "type": "quantitative",
+      "axis": {
+        "title": "Renewable Energy Consumption (%)"
       }
-    ],
-    "transform": [
-      {
-        "filter": "datum.Country_Name == 'Singapore' || datum.Country_Name == 'Malaysia' || datum.Country_Name == 'Australia' || datum.Country_Name == 'China' || datum.Country_Name == 'Brazil'"
-      },
-      {
-        "filter": "datum.Year == selectedYear"
-      }
-    ],
-    "mark": "bar",
-    "encoding": {
-      "x": {"field": "Country_Name", "type": "nominal", "axis": {"labelAngle": -45}},
-      "y": {"field": "Renewable_Energy_Consumption", "type": "quantitative"}
+    },
+    "color": {
+      "field": "Country_Name",
+      "type": "nominal",
+      "legend": {"title": "Country"}
     }
+  },
+  "title": {
+    "text": "Renewable Energy Consumption in Selected Countries",
+    "fontSize": 16,
+    "fontWeight": "bold"
   }
+}
