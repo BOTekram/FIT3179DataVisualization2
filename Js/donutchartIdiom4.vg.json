@@ -1,0 +1,21 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Donut chart showing the distribution of countries by income group",
+    "data": {
+      "values": [
+        {"IncomeGroup": "High income", "Count": 85},
+        {"IncomeGroup": "Upper middle income", "Count": 54},
+        {"IncomeGroup": "Lower middle income", "Count": 51},
+        {"IncomeGroup": "Low income", "Count": 26}
+      ]
+    },
+    "mark": {
+      "type": "arc",
+      "innerRadius": 50  
+    },
+    "encoding": {
+      "theta": {"field": "Count", "type": "quantitative"},
+      "color": {"field": "IncomeGroup", "type": "nominal", "legend": {"title": "Income Group"}}
+    },
+    "view": {"stroke": null}
+  }
