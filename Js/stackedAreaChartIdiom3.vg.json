@@ -1,46 +1,51 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Stacked area chart of renewable energy consumption for selected countries with a dropdown",
-    "width": "container",
-    "height": 600,
-    "data": {
-      "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv", 
-      "format": {
-        "type": "csv"
-      }
-    },
-    "params": [
-      {
-        "name": "selectedCountry",
-        "value": "Multiple",  
-        "bind": {
-          "input": "select",
-          "options": ["Multiple", "Singapore", "Malaysia", "Australia", "China", "Brazil"],
-          "labels": ["Multiple", "Singapore", "Malaysia", "Australia", "China", "Brazil"],
-          "name": "Select Country"
-        }
-      }
-    ],
-    "transform": [
-      {
-        "filter": "(selectedCountry == 'Multiple' && (datum.Country_Name == 'Singapore' || datum.Country_Name == 'Malaysia' || datum.Country_Name == 'Australia' || datum.Country_Name == 'China' || datum.Country_Name == 'Brazil')) || datum.Country_Name == selectedCountry"
-      }
-    ],
-    "mark": "area",
-    "encoding": {
-      "x": {"field": "Year", "type": "temporal", "axis": {"labelAngle": -45}},
-      "y": {
-        "field": "Renewable_Energy_Consumption",
-        "type": "quantitative",
-        "stack": "zero",
-        "axis": {
-          "title": "Renewable Energy Consumption (%)"  
-        }
-      },
-      "color": {
-        "field": "Country_Name", 
-        "type": "nominal",
-        "legend": {"title": "Countries"}  
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Stacked area chart of renewable energy consumption for selected countries with a dropdown",
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv", 
+    "format": {
+      "type": "csv"
+    }
+  },
+  "params": [
+    {
+      "name": "selectedCountry",
+      "value": "Multiple",  
+      "bind": {
+        "input": "select",
+        "options": ["Multiple", "Singapore", "Malaysia", "Australia", "China", "Brazil"],
+        "labels": ["Multiple", "Singapore", "Malaysia", "Australia", "China", "Brazil"],
+        "name": "Select Country"
       }
     }
+  ],
+  "transform": [
+    {
+      "filter": "(selectedCountry == 'Multiple' && (datum.Country_Name == 'Singapore' || datum.Country_Name == 'Malaysia' || datum.Country_Name == 'Australia' || datum.Country_Name == 'China' || datum.Country_Name == 'Brazil')) || datum.Country_Name == selectedCountry"
+    }
+  ],
+  "mark": "area",
+  "encoding": {
+    "x": {"field": "Year", "type": "temporal", "axis": {"labelAngle": -45}},
+    "y": {
+      "field": "Renewable_Energy_Consumption",
+      "type": "quantitative",
+      "stack": "zero",
+      "axis": {
+        "title": "Renewable Energy Consumption (%)"  
+      }
+    },
+    "color": {
+      "field": "Country_Name", 
+      "type": "nominal",
+      "legend": {"title": "Countries"}  
+    },
+    "tooltip": [
+      {"field": "Year", "type": "temporal", "title": "Year"},
+      {"field": "Country_Name", "type": "nominal", "title": "Country"},
+      {"field": "Renewable_Energy_Consumption", "type": "quantitative", "title": "Renewable Energy Consumption (%)", "format": ".2f"}
+    ]
   }
+}

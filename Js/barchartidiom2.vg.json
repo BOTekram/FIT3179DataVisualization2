@@ -16,7 +16,7 @@
         "min": 1990,
         "max": 2020,
         "step": 1,
-        "name": "Select Year" 
+        "name": "Select Year"
       }
     }
   ],
@@ -51,6 +51,37 @@
       "legend": {"title": "Country"}
     }
   },
+  "layer": [
+    {
+      "mark": "bar"
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -2  
+      },
+      "encoding": {
+        "text": {
+          "field": "Renewable_Energy_Consumption", 
+          "type": "quantitative",
+          "format": ".2f"  
+        },
+        "x": {
+          "field": "Country_Name",
+          "type": "nominal"
+        },
+        "y": {
+          "field": "Renewable_Energy_Consumption",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "black"  
+        }
+      }
+    }
+  ],
   "title": {
     "text": "Renewable Energy Consumption in Selected Countries",
     "fontSize": 16,
