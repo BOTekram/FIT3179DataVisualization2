@@ -1,57 +1,53 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
-  "height": 600,
-  "title": "Global Renewable Energy Consumption (2020)",
-  "projection": {"type": "equirectangular"},
-  "layer": [
+  "title": "Number of F1 Player in each Country",
+  "width": 650,
+  "height": 350,
+  "data": {
+    "url": "https://raw.githubusercontent.com/yeanle/DV2.1.1/main/choropleth_map/ne_110m_admin_0_countries.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "projection": {"type": "equalEarth"},
+  "layer":[
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/ne_110m.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "ne_110m_admin_0_countries"
+      "transform": [
+        {"calculate": "'Data is not available in ' + datum.properties.NAME", "as": "note"}
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {
+        "tooltip": {
+          "field": "note"
         }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "lightgray",
-        "stroke": "darkgray"
       }
     },
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv",
-        "format": {"type": "csv"}
-      },
       "transform": [
         {
-          "filter": "datum.Year == 2020"
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv"
+            },
+            "key": "Country_Name",
+            "fields": ["Renewable_Energy_Consumption","Country_Name"]
+          }
         }
       ],
-      "mark": {
-        "type": "geoshape"
-      },
+      "mark": {"type": "geoshape", "stroke": "white"},
       "encoding": {
         "color": {
           "field": "Renewable_Energy_Consumption",
+          "title":"Number of player",
           "type": "quantitative",
-          "title": "Energy Consumption",
           "scale": {
-            "domain": [0, 100],
-            "scheme": "greens"
+            "type": "threshold",
+            "domain": [1,5,10,20,30],
+            "range": ["#fd8d3c", "#e6550d","#fd423c", "#a63603","#591212"]
           }
-        },
-        "tooltip": [
-          {"field": "Country_Code", "type": "nominal", "title": "Country Code"},
-          {"field": "Year", "type": "ordinal"},
-          {
-            "field": "Renewable_Energy_Consumption",
-            "type": "quantitative",
-            "title": "Energy Consumption (GWh)"
-          }
-        ]
+        }
+      
       }
     }
   ]
+  
 }
