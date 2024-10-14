@@ -1,0 +1,63 @@
+/* General Typography */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #065a60;
+    margin: 20px 0;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+p {
+    text-align: justify;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Adding background and padding to all paragraph sections */
+.shaded-text {
+    background-color: #f9f9f9;
+    border: 1px solid #dcdcdc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Highlighting certain text */
+.highlight {
+    color: #007f5f;
+}
+
+/* Chart and general container styling */
+.chart-container {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pure-g [class*="pure-u"] {
+    padding: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #065a60;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

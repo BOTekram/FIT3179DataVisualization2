@@ -1,14 +1,26 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Global Renewable Energy Consumption",
-  "width": 650,
-  "height": 350,
+  "width": 900,
+  "height": 600,
   "data": {
     "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/ne_110m.topojson",
     "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
   },
   "projection": {"type": "equalEarth"},
-  "layer":[
+  "params": [
+    {
+      "name": "intensity",
+      "value":0,  
+      "bind": {
+        "input": "range",  
+        "min": 0, 
+        "max": 100,  
+        "step": 1,  
+        "name": "Adjust Minimum Intensity: " 
+      }
+    }
+  ],
+  "layer": [
     {
       "transform": [
         {"calculate": "'Data is not available in ' + datum.properties.NAME", "as": "note"}
@@ -30,15 +42,21 @@
               "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/API_EG_FEC_RNEW_ZS_DS2_en_csv_v2_1722.csv"
             },
             "key": "Country_Name",
-            "fields": ["Renewable_Energy_Consumption", "Country_Name"]
+            "fields": ["Renewable_Energy_Consumption", "Country_Name", "Year"]
           }
+        },
+        {
+          "filter": "datum.Year == 2020"
+        },
+        {
+          "filter": "datum.Renewable_Energy_Consumption >= intensity" 
         }
       ],
       "mark": {"type": "geoshape", "stroke": "white"},
       "encoding": {
         "color": {
           "field": "Renewable_Energy_Consumption",
-          "title": "Renewable Energy Consumption (%)",
+          "title": "Intensity Bar (%)",
           "type": "quantitative",
           "scale": {
             "type": "threshold",
@@ -53,7 +71,8 @@
             "type": "quantitative",
             "title": "Renewable Energy Consumption (%)",
             "format": ".2f"
-          }
+          },
+          {"field": "Year", "type": "ordinal", "title": "Year"}  
         ]
       }
     }

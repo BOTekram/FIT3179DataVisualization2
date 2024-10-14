@@ -1,0 +1,59 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Stacked bar chart with bars starting at the y-axis",
+    "width": 800,
+    "height": 500,
+    "data": {
+      "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/complete_renewable_energy_dataset.csv", 
+      "format": {
+        "type": "csv"
+      }
+    },
+    "params": [
+      {
+        "name": "selectedCountry",
+        "value": "Multiple",  
+        "bind": {
+          "input": "select",
+          "options": ["Multiple", "USA", "Australia", "Canada", "Japan", "China"],
+          "labels": ["Multiple", "USA", "Australia", "Canada", "Japan", "China"],
+          "name": "Select Country"
+        }
+      }
+    ],
+    "transform": [
+      {
+        "filter": "(selectedCountry == 'Multiple' && (datum.Country == 'USA' || datum.Country == 'Australia' || datum.Country == 'Canada' || datum.Country == 'Japan' || datum.Country == 'China')) || datum.Country == selectedCountry"
+      }
+    ],
+    "mark": {
+      "type": "bar",
+      "width": 20  
+    },
+    "encoding": {
+      "x": {
+        "field": "Year", 
+        "type": "ordinal", 
+        "axis": {"labelAngle": -45}
+      },
+      "y": {
+        "field": "Production (GWh)",
+        "type": "quantitative",
+        "stack": "zero",
+        "axis": {
+          "title": "Production (GWh)"
+        }
+      },
+      "color": {
+        "field": "Country", 
+        "type": "nominal",
+        "legend": {"title": "Countries"}  
+      },
+      "tooltip": [
+        {"field": "Year", "type": "ordinal", "title": "Year"},
+        {"field": "Country", "type": "nominal", "title": "Country"},
+        {"field": "Production (GWh)", "type": "quantitative", "title": "Production (GWh)", "format": ".2f"}
+      ]
+    }
+  }
+  

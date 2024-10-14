@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renewable Energy Visualization Dashboard</title>
+
+    <!-- Link to Vega-Lite, Vega, and Vega-Embed libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <!-- Importing Pure.css for Layout and Google Font -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    
+    <style>
+                body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #bfbfc2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-weight: 900;
+            text-align: center;
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-weight: 900;
+            text-align: center;
+            font-size: 25px;
+            margin-top: 20px;
+        }
+
+        p {
+            text-align: justify;
+            color: #333;
+            font-size: 18px;
+        }
+
+        /* Highlight style */
+        .highlight {
+            color: #007f5f;
+        }
+
+        /* Center the chart container and its contents */
+        .chart-container {
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 1200px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            
+            /* Flexbox to center the charts */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center charts horizontally */
+        }
+
+        /* Styling for text with a shaded background */
+        .shaded-text {
+            background-color: #f9f9f9;
+            border: 1px solid #dcdcdc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            max-width: 1000px;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 5px;
+            background-color: #0b9e77;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <h1>Renewable Energy Visualization Dashboard</h1>
+
+    <!-- Global Renewable Energy Consumption Map -->
+    <section class="chart-container">
+        <h2>Global <span class="highlight">Renewable Energy</span> Consumption (%) In 2020 Map</h2>
+        <div id="map"></div>
+        <div class="shaded-text">
+            <p>The map illustrates renewable energy consumption in 2020 for various countries. Darker shades of green indicate higher renewable energy usage, while lighter shades indicate lower consumption. Countries such as <span class="highlight">Australia</span>, <span class="highlight">Canada</span>, and <span class="highlight">Brazil</span> show significant renewable energy usage.</p>
+        </div>
+    </section>
+
+    <!-- Bar Chart for Selected Countries -->
+    <section class="chart-container">
+        <h2><span class="highlight">Renewable Energy</span> Production in Countries</h2>
+        <div id="barchart"></div>
+        <div class="shaded-text">
+            <p>This bar chart compares the total renewable energy production across a selection of countries. 
+                It can be seen from the chart, <span class="highlight">Geothermal</span> and <span class="highlight">Hydro</span> are the most 
+                produced renewable energy on average among countries in 2020. Australia is seen to excel in Wind energy production the most </p>
+        </div>
+    </section>
+
+    <!-- Donut Chart for Energy Type Breakdown -->
+    <section class="chart-container">
+        <h2><span class="highlight">Energy</span> Production by Type in 2022</h2>
+        <div id="donutchart"></div>
+        <div class="shaded-text">
+            <p>The donut chart provides an overview of energy production by type in 2022, showing the proportion of energy sources like <span class="highlight">solar</span>, <span class="highlight">wind</span>, and <span class="highlight">hydro</span>. It highlights the increasing shift towards cleaner energy sources. This is an expected shift since people are becoming more environmentally cautious and shifting their interest towards renewable energy to preserve earth's resources.</p>
+        </div>
+    </section>
+
+    <!-- Stacked Area Chart for Energy Consumption Trends -->
+    <section class="chart-container">
+        <h2><span class="highlight">Energy</span> Consumption Trends</h2>
+        <div id="stackedchart"></div>
+        <div class="shaded-text">
+            <p>The stacked area chart visualizes renewable energy consumption trends over the years, showcasing how various countries have increased their adoption of renewable energy. 
+                Countries like <span class="highlight">Brazil</span> and <span class="highlight">China</span> show the most amount of renewable energy used whereas countries like <span class="highlight">Singapore</span> and <span class="highlight">Malaysia</span> show the least amount of renewable energy consumption.</p>
+        </div>
+    </section>
+
+    <!-- Stacked Bar Chart for Energy Proportion by Country -->
+    <section class="chart-container">
+        <h2><span class="highlight">Renewable Energy</span> Proportion by Country</h2>
+        <div id="stackedbarchart"></div>
+        <div class="shaded-text">
+            <p>This stacked bar chart shows the renewable energy production (in GWh) of five countries—<span class="highlight">Australia</span>, <span class="highlight">Canada</span>, <span class="highlight">China</span>, <span class="highlight">Japan</span>, and the <span class="highlight">USA</span>—from 2000 to 2023. Each color represents a different country, making it easy to compare their renewable energy contributions over time.</p>
+            <p><span class="highlight">China</span> stands out with a significant rise in renewable energy production, particularly after 2010, becoming the leading contributor in recent years. <span class="highlight">The USA</span> and <span class="highlight">Canada</span> maintain steady production with some fluctuations. On the other hand, <span class="highlight">Australia</span> and <span class="highlight">Japan</span> exhibit more gradual growth in their renewable energy outputs.</p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Ekramul Islam. All rights reserved.</p>
+    </footer>
+
+    <!-- Vega Embed for Charts -->
+    <script>
+        vegaEmbed('#map', 'Js/mapidiom1.vg.json').catch(console.error);
+        vegaEmbed('#barchart', 'Js/barchartidiom2.vg.json').catch(console.error);
+        vegaEmbed('#donutchart', 'Js/donutchartIdiom4.vg.json').catch(console.error);
+        vegaEmbed('#stackedchart', 'Js/stackedAreaChartIdiom3.vg.json').catch(console.error);
+        vegaEmbed('#stackedbarchart', 'Js/idiom5.vg.json').catch(console.error);
+    </script>
+
+    <!-- Footer HTML here -->
+    <div class="headingpage">
+        <div class="pure-g">
+            <div class="pure-u-1-2">
+                <h3 class="name">© 2024 Ekramul Islam. All rights reserved.</h3>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

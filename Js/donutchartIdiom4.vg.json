@@ -1,6 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Donut chart showing energy production by energy type in 2022",
+  "width": 800,
+  "height": 400,
   "data": {
     "url": "https://raw.githubusercontent.com/BOTekram/FIT3179DataVisualization2/main/data/complete_renewable_energy_dataset.csv",
     "format": {
@@ -18,7 +20,7 @@
   ],
   "mark": {
     "type": "arc",
-    "innerRadius": 50  
+    "innerRadius": 120  
   },
   "encoding": {
     "theta": {
@@ -35,10 +37,6 @@
       {"field": "Total Production", "type": "quantitative", "title": "Total Production (GWh)", "format": ".2f"}
     ]
   },
-  "view": {"stroke": null},
-  "title": {
-    "text": "Energy Production by Energy Type in 2022",
-    "fontSize": 16,
-    "fontWeight": "bold"
-  }
+  "view": {"stroke": null}
+  
 }
