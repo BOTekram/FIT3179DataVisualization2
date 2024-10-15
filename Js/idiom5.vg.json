@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Stacked bar chart with bars starting at the y-axis",
+    "description": "Stacked bar chart",
     "width": 800,
     "height": 500,
     "data": {
